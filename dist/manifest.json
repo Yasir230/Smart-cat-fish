@@ -1,0 +1,10 @@
+{
+  "name": "Smart Catfish Dashboard",
+  "short_name": "SmartCatfish",
+  "description": "IoT Dashboard for Catfish Pond DO Monitoring",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e1b4b",
+  "theme_color": "#0ea5e9",
+  "icons": []
+}

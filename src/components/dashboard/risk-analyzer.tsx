@@ -29,7 +29,7 @@ export function RiskAnalyzer({ reading, history, isLoading }: RiskAnalyzerProps)
   const confidence = calculateAIConfidence(reading.doRisk, reading.mode);
   
   // Calculate trend from history
-  let trendIcon = Minus;
+  let TrendIcon = Minus;
   let trendColor = 'text-white/50';
   let forecast = "Kondisi stabil";
   
@@ -37,11 +37,11 @@ export function RiskAnalyzer({ reading, history, isLoading }: RiskAnalyzerProps)
     const latest = history[history.length - 1].doRisk;
     const previous = history[history.length - 2].doRisk;
     if (latest > previous) {
-      trendIcon = TrendingUp; // Risk going up (bad)
+      TrendIcon = TrendingUp; // Risk going up (bad)
       trendColor = 'text-red-400';
       forecast = "Risiko meningkat. Antisipasi DO drop dalam 30 menit.";
     } else if (latest < previous) {
-      trendIcon = TrendingDown; // Risk going down (good)
+      TrendIcon = TrendingDown; // Risk going down (good)
       trendColor = 'text-emerald-400';
       forecast = "Kondisi membaik. Aerator efektif menaikkan DO.";
     }
@@ -95,7 +95,7 @@ export function RiskAnalyzer({ reading, history, isLoading }: RiskAnalyzerProps)
         <div className="flex-1 flex flex-col justify-end mt-4 border-t border-white/10 pt-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium text-white/80">Prediksi 30 Menit</span>
-            <trendIcon className={cn("w-4 h-4", trendColor)} />
+            <TrendIcon className={cn("w-4 h-4", trendColor)} />
           </div>
           <p className="text-xs text-white/60 leading-relaxed">
             {forecast}
