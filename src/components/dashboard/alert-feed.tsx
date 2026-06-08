@@ -7,6 +7,7 @@ import { SkeletonLoader } from '@/components/ui/skeleton-loader';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { cn, formatTimestamp, riskScoreToLevel } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useFCM } from '@/hooks/use-fcm';
 
 interface AlertFeedProps {
   alert: AlertData | null;
@@ -34,6 +35,8 @@ function generateAlertsFromHistory(history: HistoryEntry[]): AlertData[] {
 }
 
 export function AlertFeed({ alert, history, soundEnabled, onToggleSound, isLoading }: AlertFeedProps) {
+  const { requestPermission } = useFCM();
+
   if (isLoading) {
     return (
       <GlassPanel title="Sistem Peringatan" icon={Bell}>
@@ -59,18 +62,26 @@ export function AlertFeed({ alert, history, soundEnabled, onToggleSound, isLoadi
       icon={Bell} 
       className="md:col-span-1"
       headerAction={
-        <button 
-          onClick={onToggleSound}
-          className={cn(
-            "p-2 rounded-lg transition-colors border",
-            soundEnabled 
-              ? "bg-sky-500/20 text-sky-400 border-sky-500/30" 
-              : "bg-white/5 text-white/40 border-white/10 hover:text-white hover:bg-white/10"
-          )}
-          title={soundEnabled ? "Matikan suara peringatan" : "Nyalakan suara peringatan"}
-        >
-          {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={requestPermission}
+            className="px-3 py-1.5 rounded-lg transition-colors border bg-sky-500/20 text-sky-400 border-sky-500/30 hover:bg-sky-500/30 text-xs font-medium"
+          >
+            Enable Push Notifications
+          </button>
+          <button 
+            onClick={onToggleSound}
+            className={cn(
+              "p-2 rounded-lg transition-colors border",
+              soundEnabled 
+                ? "bg-sky-500/20 text-sky-400 border-sky-500/30" 
+                : "bg-white/5 text-white/40 border-white/10 hover:text-white hover:bg-white/10"
+            )}
+            title={soundEnabled ? "Matikan suara peringatan" : "Nyalakan suara peringatan"}
+          >
+            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+          </button>
+        </div>
       }
     >
       <div className="flex flex-col h-full space-y-4">
