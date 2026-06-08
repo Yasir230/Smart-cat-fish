@@ -20,7 +20,7 @@ export function AeratorControl({ reading, history, onCommand, isRateLimited, isL
   const [showConfirm, setShowConfirm] = useState(false);
   const [pendingAction, setPendingAction] = useState<'on' | 'off' | null>(null);
 
-  if (isLoading || !reading) {
+  if (isLoading) {
     return (
       <GlassPanel title="Aerator Control" icon={Fan}>
         <div className="flex flex-col h-full gap-4">
@@ -29,6 +29,17 @@ export function AeratorControl({ reading, history, onCommand, isRateLimited, isL
             <SkeletonLoader className="w-full h-24 rounded-xl" />
             <SkeletonLoader className="w-full h-24 rounded-xl" />
           </div>
+        </div>
+      </GlassPanel>
+    );
+  }
+  
+  if (!reading) {
+    return (
+      <GlassPanel title="Aerator Control" icon={Fan} className="md:col-span-1">
+        <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-white/40 text-sm">
+          <Fan className="w-8 h-8 opacity-20 mb-3" />
+          <p>Koneksi perangkat terputus...</p>
         </div>
       </GlassPanel>
     );

@@ -16,12 +16,23 @@ interface DoMonitorProps {
 }
 
 export function DoMonitor({ reading, history, isLoading }: DoMonitorProps) {
-  if (isLoading || !reading) {
+  if (isLoading) {
     return (
       <GlassPanel title="DO Monitor" icon={Activity}>
         <div className="flex flex-col items-center justify-center h-64 gap-4">
           <SkeletonLoader className="w-40 h-40 rounded-full" />
           <SkeletonLoader className="w-32 h-6 rounded-full" />
+        </div>
+      </GlassPanel>
+    );
+  }
+  
+  if (!reading) {
+    return (
+      <GlassPanel title="DO Monitor" icon={Activity} className="md:col-span-1">
+        <div className="flex flex-col items-center justify-center h-64 text-white/40 text-sm">
+          <Activity className="w-8 h-8 opacity-20 mb-3" />
+          <p>Menunggu data ESP32...</p>
         </div>
       </GlassPanel>
     );

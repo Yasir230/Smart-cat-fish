@@ -7,9 +7,6 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { name: 'Home', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Data', href: '/dashboard/analytics', icon: Activity },
-  { name: 'Alerts', href: '/dashboard/alerts', icon: AlertTriangle },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
 export function MobileNav() {

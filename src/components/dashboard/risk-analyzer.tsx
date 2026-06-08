@@ -15,12 +15,23 @@ interface RiskAnalyzerProps {
 }
 
 export function RiskAnalyzer({ reading, history, isLoading }: RiskAnalyzerProps) {
-  if (isLoading || !reading) {
+  if (isLoading) {
     return (
       <GlassPanel title="AI Risk Analyzer" icon={BrainCircuit}>
         <div className="flex flex-col h-full gap-4">
           <SkeletonLoader className="w-full h-20 rounded-xl" />
           <SkeletonLoader className="w-full h-32 rounded-xl flex-1" />
+        </div>
+      </GlassPanel>
+    );
+  }
+  
+  if (!reading) {
+    return (
+      <GlassPanel title="AI Risk Analyzer" icon={BrainCircuit} className="md:col-span-1">
+        <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-white/40 text-sm">
+          <BrainCircuit className="w-8 h-8 opacity-20 mb-3" />
+          <p>Sistem AI Menunggu Data...</p>
         </div>
       </GlassPanel>
     );

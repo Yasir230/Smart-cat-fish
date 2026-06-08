@@ -13,12 +13,23 @@ interface DeviceStatusProps {
 }
 
 export function DeviceStatus({ reading, history, isLoading }: DeviceStatusProps) {
-  if (isLoading || !reading) {
+  if (isLoading) {
     return (
       <GlassPanel title="Device Status" icon={Cpu}>
         <div className="flex flex-col h-full gap-4">
           <SkeletonLoader className="w-full h-12 rounded-xl" />
           <SkeletonLoader className="w-full h-32 rounded-xl flex-1" />
+        </div>
+      </GlassPanel>
+    );
+  }
+  
+  if (!reading) {
+    return (
+      <GlassPanel title="Device Status" icon={Cpu} className="md:col-span-1">
+        <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-white/40 text-sm">
+          <Cpu className="w-8 h-8 opacity-20 mb-3" />
+          <p>Status Hardware Offline</p>
         </div>
       </GlassPanel>
     );
