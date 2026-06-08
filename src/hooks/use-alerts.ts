@@ -34,9 +34,15 @@ export function useAlerts() {
   };
 
   useEffect(() => {
+    // Escape loading state if connection hangs or env vars are missing
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
     const alertRef = ref(db, FIREBASE_PATHS.ALERT);
     
     const unsubscribe = onValue(alertRef, (snapshot) => {
+      clearTimeout(timeoutId);
       try {
         if (snapshot.exists()) {
           const val = snapshot.val();

@@ -14,9 +14,15 @@ export function useRealtimeData() {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    // Escape loading state if connection hangs or env vars are missing
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
     const dataRef = ref(db, FIREBASE_PATHS.LATEST);
     
     const unsubscribe = onValue(dataRef, (snapshot) => {
+      clearTimeout(timeoutId);
       try {
         if (snapshot.exists()) {
           const val = snapshot.val();
