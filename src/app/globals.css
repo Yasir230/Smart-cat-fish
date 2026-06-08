@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ocean-deep: #0c4a6e;
+  --color-ocean-mid: #134e4a;
+  --color-ocean-dark: #1e1b4b;
+  --color-glass-surface: rgba(255, 255, 255, 0.05);
+  --color-glass-surface-hover: rgba(255, 255, 255, 0.10);
+  --color-glass-card: rgba(255, 255, 255, 0.07);
+  --color-glass-border: rgba(255, 255, 255, 0.10);
+  --color-glass-border-card: rgba(255, 255, 255, 0.12);
+  --color-accent-safe: #0ea5e9;
+  --color-accent-safe-bg: rgba(14, 165, 233, 0.1);
+  --color-accent-safe-border: rgba(14, 165, 233, 0.3);
+  --color-accent-warn: #f59e0b;
+  --color-accent-warn-bg: rgba(245, 158, 11, 0.1);
+  --color-accent-warn-border: rgba(245, 158, 11, 0.3);
+  --color-accent-critical: #ef4444;
+  --color-accent-critical-bg: rgba(239, 68, 68, 0.1);
+  --color-accent-critical-border: rgba(239, 68, 68, 0.3);
+  --color-accent-danger: #b91c1c;
+  --color-accent-danger-bg: rgba(185, 28, 28, 0.1);
+  --color-accent-danger-border: rgba(185, 28, 28, 0.3);
+
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px currentColor); }
+    50% { opacity: .5; filter: drop-shadow(0 0 2px currentColor); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ocean-dark);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-[var(--color-glass-surface)] backdrop-blur-xl border border-[var(--color-glass-border)] rounded-2xl transition-colors duration-300;
+  }
+  .glass-card {
+    @apply bg-[var(--color-glass-card)] backdrop-blur-2xl border border-[var(--color-glass-border-card)] rounded-2xl shadow-2xl transition-all duration-300;
+  }
+  .glass-hover {
+    @apply hover:bg-[var(--color-glass-surface-hover)];
+  }
+}
